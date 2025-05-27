@@ -6,26 +6,31 @@ namespace OnlineShop.DB
 {
     public class ProductsDBRepository : IProductDBsRepository
     {
-        static List<ProductDB> products = new List<ProductDB>();
+        private readonly DatabaseContext dbContext;
+
+        public ProductsDBRepository(DatabaseContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         public List<ProductDB> GetAll()
         {
-            return products;
+            return dbContext.ProductDBs.ToList();
         }
 
         public ProductDB TryGetById(Guid id)
         {
-            return products.FirstOrDefault(x => x.Id == id);
+            return dbContext.ProductDBs.FirstOrDefault(x => x.Id == id);
         }
 
         public void Add(ProductDB product)
         {
-            products.Add(product);
+            dbContext.ProductDBs.Add(product);
         }
 
         public void Updata(ProductDB product)
         {
-            var existingProduct = products.FirstOrDefault(x => x.Id == product.Id);
+            var existingProduct = dbContext.ProductDBs.FirstOrDefault(x => x.Id == product.Id);
             if (existingProduct == null)
             {
                 return;
