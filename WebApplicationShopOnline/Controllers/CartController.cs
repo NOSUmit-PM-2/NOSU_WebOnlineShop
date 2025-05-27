@@ -24,20 +24,20 @@ namespace WebApplicationShopOnline.Controllers
             return View(cart);
         }
 
-        public IActionResult Add(int id)
+        public IActionResult Add(Guid id)
         {
             Product product = productsRepository.TryGetById(id);
             cartsRepository.Add(product, 1);
             return RedirectToAction("Index");
         }
 
-        public IActionResult IncreaseCountProduct(int productId)
+        public IActionResult IncreaseCountProduct(Guid productId)
         {
             cartsRepository.IncreaseCountProduct(productId, 1);
             return RedirectToAction("Index");
         }
 
-        public IActionResult DecreaseCountProduct(int productId)
+        public IActionResult DecreaseCountProduct(Guid productId)
         {
             cartsRepository.DecreaseCountProduct(productId, 1);
             return RedirectToAction("Index");

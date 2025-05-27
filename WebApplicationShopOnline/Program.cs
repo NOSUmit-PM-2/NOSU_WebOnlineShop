@@ -12,8 +12,8 @@ builder.Services.AddControllersWithViews();
 string connection = builder.Configuration.GetConnectionString("DBonlineShop");
 builder.Services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(connection));
 builder.Services.AddTransient<IProductDBsRepository, ProductsDBRepository>();
+builder.Services.AddTransient<ICartsDbReposiroty, CartsDbReposiroty>();
 
-builder.Services.AddSingleton<ICartRepository, CartsInMemoryRepository>();
 
 
 var app = builder.Build();

@@ -21,7 +21,7 @@ namespace WebApplicationShopOnline.Controllers
         public IActionResult Index(Guid id)
         {
             ProductDB prod = productsRepository.TryGetById(id);
-            return View(prod);
+            return View(Mapping.ToProduct(prod));
         }
 
 

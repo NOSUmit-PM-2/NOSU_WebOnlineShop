@@ -6,7 +6,7 @@ namespace WebApplicationShopOnline.Data
     {
         Cart TryGetByUserId(int id);
         void Add(Product product, int userId);
-        void IncreaseCountProduct(int productId, int userId);
-        void DecreaseCountProduct(int productId, int v);
+        void IncreaseCountProduct(Guid productId, int userId);
+        void DecreaseCountProduct(Guid productId, int v);
     }
 }

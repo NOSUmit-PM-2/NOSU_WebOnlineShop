@@ -1,17 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Hosting;
+using OnlineShop.DB;
 using System.Diagnostics;
 using System.Xml.Linq;
 using WebApplicationShopOnline.Data;
+using WebApplicationShopOnline.Helpers;
 using WebApplicationShopOnline.Models;
 
 namespace WebApplicationShopOnline.Controllers
 {
     public class AdminController : Controller
     {
-        readonly IProductsRepository productsRepository;
+        readonly IProductDBsRepository productsRepository;
 
-        public AdminController(IProductsRepository prodRepo)
+        public AdminController(IProductDBsRepository prodRepo)
         {
             this.productsRepository = prodRepo;
         }
@@ -19,7 +21,7 @@ namespace WebApplicationShopOnline.Controllers
      
         public IActionResult Products(int id)
         {
-            return View(productsRepository.GetAll());
+            return View(Mapping.ToProductsList(productsRepository.GetAll()));
         }
 
 
@@ -39,7 +41,7 @@ namespace WebApplicationShopOnline.Controllers
 
             if (ModelState.IsValid)
             {
-                productsRepository.Add(product);
+                productsRepository.Add(Mapping.ToProductDB(product));
                 return RedirectToAction("Products", "Admin");
             }
             else 
@@ -49,16 +51,16 @@ namespace WebApplicationShopOnline.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditProduct(int id)
+        public IActionResult EditProduct(Guid id)
         {
-            var product = productsRepository.TryGetById(id);
-            return View(product);
+            ProductDB product = productsRepository.TryGetById(id);
+            return View(Mapping.ToProduct(product));
         }
 
         [HttpPost]
-        public IActionResult EditProduct(ProductEdit product)
+        public IActionResult EditProduct(Product product)
         {
-            productsRepository.Updata(product);
+            productsRepository.Updata(Mapping.ToProductDB(product));
             return RedirectToAction("Index", "Product", new { product.Id });
         }
     }

@@ -26,6 +26,7 @@ namespace OnlineShop.DB
         public void Add(ProductDB product)
         {
             dbContext.ProductDBs.Add(product);
+            dbContext.SaveChangesAsync();
         }
 
         public void Updata(ProductDB product)
@@ -39,6 +40,7 @@ namespace OnlineShop.DB
             existingProduct.Description = product.Description;
             existingProduct.Cost = product.Cost;
             existingProduct.PathPicture = product.PathPicture;
+            dbContext.SaveChangesAsync();
         }
     }
 }

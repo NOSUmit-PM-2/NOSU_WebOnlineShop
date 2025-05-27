@@ -9,7 +9,7 @@ namespace WebApplicationShopOnline.Helpers
         {
             return new Product
             {
-                //Id = product.Id,   
+                Id = product.Id,   
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description,
@@ -21,7 +21,7 @@ namespace WebApplicationShopOnline.Helpers
         {
             return new ProductDB
             {
-                //Id = product.Id,   
+                Id = product.Id,   
                 Name = product.Name,
                 Cost = product.Cost,
                 Description = product.Description,
